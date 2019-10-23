@@ -1,6 +1,8 @@
 
 import 'dart:convert';
 
+import 'Category.dart';
+
 JsonResponseVenues jsonResponseVenuesFromJson(String str) =>
     JsonResponseVenues.fromJson(json.decode(str));
 
@@ -63,6 +65,7 @@ class Venue {
   Location location;
   List<Category> categories;
   VenuePage venuePage;
+  IconV icon;
 
   Venue({
     this.id,
@@ -86,38 +89,18 @@ class Venue {
 
 }
 
-class Category {
-  String id;
-  String name;
-  String shortName;
-  Icon icon;
 
-  Category({
-    this.id,
-    this.name,
-    this.shortName,
-    this.icon,
-  });
-
-  factory Category.fromJson(Map<String, dynamic> json) => Category(
-    id: json["id"],
-    name: json["name"],
-    shortName: json["shortName"],
-    icon: Icon.fromJson(json["icon"]),
-  );
-
-}
-
-class Icon {
+class IconV {
   String prefix;
   String suffix;
 
-  Icon({
+  IconV({
     this.prefix,
     this.suffix,
   });
 
-  factory Icon.fromJson(Map<String, dynamic> json) => Icon(
+  factory IconV.fromJson(Map<String, dynamic> json) =>
+      IconV(
     prefix: json["prefix"],
     suffix: json["suffix"],
   );
