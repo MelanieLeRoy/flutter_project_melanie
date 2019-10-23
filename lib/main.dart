@@ -35,7 +35,9 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<String> _suggestions = <String>[];
 
   void _submit() {
-    setState(() {});
+    setState(() {
+
+    });
   }
 
   @override
@@ -96,3 +98,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 }
+
+
+
