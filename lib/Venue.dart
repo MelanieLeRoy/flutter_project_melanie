@@ -127,6 +127,14 @@ class Location {
     formattedAddress: List<String>.from(json["formattedAddress"].map((x) => x)),
   );
 
+  getFormattedAddress() {
+    String formattedAddressString = "";
+    for (String s in formattedAddress) {
+      formattedAddressString += s;
+    }
+    return formattedAddressString;
+  }
+
 }
 
 class VenuePage {

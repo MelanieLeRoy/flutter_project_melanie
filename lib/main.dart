@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'Category.dart';
 import 'env.dart';
+import 'detailsPage.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,10 +37,11 @@ class _MyHomePageState extends State<MyHomePage> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _location = TextEditingController();
-  TextEditingController _type = TextEditingController();
 
   List<Venue> _suggestions = new List();
   List<Category> _categories = new List();
+
+
   var isLoading = false;
   var isLoadingCategories = false;
 
@@ -135,6 +137,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         _suggestions[index].categories[0].icon.prefix + "44" +
                             _suggestions[index].categories[0].icon.suffix),
                   ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            DetailScreen(venue: _suggestions[index]),
+                      ),
+                    );
+                  },
                 );
               },
             ),
@@ -167,7 +178,6 @@ class _MyHomePageState extends State<MyHomePage> {
       });
       return _suggestions;
     } else {
-      print("error");
       throw Exception('Failed to load venues');
     }
   }
@@ -198,10 +208,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
       return _categories;
     } else {
-      print("error");
       throw Exception('Failed to load categories');
     }
   }
+
 
 }
 
