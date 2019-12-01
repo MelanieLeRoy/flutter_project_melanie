@@ -11,23 +11,23 @@ class Maps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      home: new MyHomePage(venue: this.venue),
+      home: new MapsPage(venue: this.venue),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MapsPage extends StatefulWidget {
   final Venue venue;
 
-  MyHomePage({Key key, @required this.venue}) : super(key: key);
+  MapsPage({Key key, @required this.venue}) : super(key: key);
   @override
-  _MyHomePageState createState() => new _MyHomePageState(this.venue);
+  _MapsState createState() => new _MapsState(this.venue);
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MapsState extends State<MapsPage> {
   final Venue venue;
 
-  _MyHomePageState(this.venue);
+  _MapsState(this.venue);
 
   @override
   Widget build(BuildContext context) {
