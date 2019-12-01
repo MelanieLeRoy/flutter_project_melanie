@@ -1,64 +1,73 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong/latlong.dart';
 
 import 'Venue.dart';
 
-class MapDisplay extends StatelessWidget {
-  // This widget is the root of your application.
+class Maps extends StatelessWidget {
   final Venue venue;
 
-  MapDisplay({Key key, this.venue}) : super(key: key);
-
+  Maps({Key key, @required this.venue}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: this.venue.name,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MapPage(title: this.venue.name, venue: this.venue),
+    return new MaterialApp(
+      home: new MyHomePage(venue: this.venue),
     );
   }
 }
 
-class MapPage extends StatefulWidget {
-  final String title;
+class MyHomePage extends StatefulWidget {
   final Venue venue;
 
-  MapPage({Key key, this.title, this.venue}) : super(key: key);
-
+  MyHomePage({Key key, @required this.venue}) : super(key: key);
   @override
-  State<MapPage> createState() {
-    return _MapPageState(this.venue);
-  }
+  _MyHomePageState createState() => new _MyHomePageState(this.venue);
 }
 
-class _MapPageState extends State<MapPage> {
+class _MyHomePageState extends State<MyHomePage> {
   final Venue venue;
 
-  _MapPageState(this.venue);
-
-  Completer<GoogleMapController> _controller = Completer();
-
-  static const LatLng _center = const LatLng(45.521563, -122.677433);
-
-  void _onMapCreated(GoogleMapController controller) {
-    _controller.complete(controller);
-  }
+  _MyHomePageState(this.venue);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: GoogleMap(
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 11.0,
-          ),
+    return new Scaffold(
+      appBar: new AppBar(title: new Text(venue.name)),
+      body: new FlutterMap(
+        options: new MapOptions(
+          center: new LatLng(venue.location.lat, venue.location.lng),
+          zoom: 13.0,
         ),
+        layers: [
+          new TileLayerOptions(
+            urlTemplate: "https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoibWFyc2hhbGxqciIsImEiOiJjazNlbjV0a3gwMDFqM2VvOTJhYXZ0cGhqIn0.CYRG0gZZhBiPZKYnUJmf8Q",
+            additionalOptions: {
+              'accessToken': 'pk.eyJ1IjoibWFyc2hhbGxqciIsImEiOiJjazNlbjV0a3gwMDFqM2VvOTJhYXZ0cGhqIn0.CYRG0gZZhBiPZKYnUJmf8Q',
+              'id': 'mapbox.streets-satellite',
+            },
+          ),
+          new MarkerLayerOptions(
+            markers: [
+              new Marker(
+                  width: 45.0,
+                  height: 45.0,
+                  point: new LatLng(venue.location.lat, venue.location.lng),
+                  builder: (context) =>
+                  new MaterialButton(
+                    child: IconButton(
+                      icon: Icon(Icons.room),
+                      color: Colors.red,
+                      tooltip: "efgsrv" + venue.name,
+                      iconSize: 45.0,
+                      onPressed: () {
+                        print(venue.name);
+                      },
+                    ),
+                  ))
+            ],
+          ),
+        ]
+        ,
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_melanie/Venue.dart';
 import 'package:http/http.dart' as http;
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:convert';
 
 import 'Image.dart';
@@ -143,7 +142,7 @@ class _MyDetailsPageState extends State<DetailsPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MapDisplay(venue: this.venue),
+                    builder: (context) => Maps(venue: this.venue),
                   ),
                 );
               },
